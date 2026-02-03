@@ -9,6 +9,7 @@ RUN apt-get update \
       curl \
       git \
       docker-cli \
+      docker-compose-plugin \
     && rm -rf /var/lib/apt/lists/*
 
 ARG KUBECTL_VERSION=v1.28.0
