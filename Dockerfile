@@ -9,8 +9,14 @@ RUN apt-get update \
       curl \
       git \
       docker-cli \
-      docker-compose-plugin \
     && rm -rf /var/lib/apt/lists/*
+
+# Docker Compose v2 standalone (Debian trixie doesn't ship docker-compose-plugin)
+ARG DOCKER_COMPOSE_VERSION=v2.29.7
+RUN curl -fsSL -o /usr/local/bin/docker-compose \
+      https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-linux-x86_64 \
+    && chmod +x /usr/local/bin/docker-compose
+
 
 ARG KUBECTL_VERSION=v1.28.0
 RUN curl -fsSL -o /usr/local/bin/kubectl \
