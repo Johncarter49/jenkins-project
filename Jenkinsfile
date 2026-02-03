@@ -83,6 +83,8 @@ pipeline {
       }
       steps {
         input message: 'Production deploy onaylıyor musun?', ok: 'Deploy'
+	sh 'echo "INPUT OK, continuing..."'
+
         withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
  	  sh 'set -e; echo "KUBECONFIG=$KUBECONFIG"; ls -l "$KUBECONFIG"'
           sh 'kubectl get ns'
