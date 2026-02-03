@@ -8,7 +8,7 @@ RUN apt-get update \
       ca-certificates \
       curl \
       git \
-      docker.io \
+      docker-cli \
     && rm -rf /var/lib/apt/lists/*
 
 ARG KUBECTL_VERSION=v1.28.0
@@ -25,7 +25,9 @@ RUN curl -fsSL -o /tmp/helm.tgz \
     && rm -rf /tmp/helm.tgz /tmp/linux-amd64
 
 # Allow Jenkins user to run docker if /var/run/docker.sock is mounted
-RUN usermod -aG docker jenkins
+#RUN usermod -aG docker jenkins
+RUN groupadd -f docker \
+    && usermod -aG docker jenkins
 
 USER jenkins
 
