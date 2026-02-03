@@ -36,7 +36,9 @@ pipeline {
       steps {
         withCredentials([usernamePassword(credentialsId: 'docker-registry', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
           sh 'echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin ${REGISTRY}'
+          sh 'echo "Pushing ${MOVIE_IMAGE}:${IMAGE_TAG}"'
           sh 'docker push ${MOVIE_IMAGE}:${IMAGE_TAG}'
+          sh 'echo "Pushing ${CAST_IMAGE}:${IMAGE_TAG}"'
           sh 'docker push ${CAST_IMAGE}:${IMAGE_TAG}'
           sh 'docker logout ${REGISTRY}'
         }
