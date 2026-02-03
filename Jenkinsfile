@@ -58,10 +58,12 @@ pipeline {
         }
       }
       steps {
-	sh 'echo "STAGING START"'
-	sh 'kubectl version --client'
-	sh 'helm version'
-	sh 'ls -l $KUBECONFIG'
+	sh 'echo "BRANCH_NAME=$BRANCH_NAME"'
+	sh 'set -eux; echo "KUBECONFIG=$KUBECONFIG"; ls -l "$KUBECONFIG"'
+	sh 'kubectl config view --minify'
+	sh 'kubectl get ns'
+	sh 'helm list -A'
+
         withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
           sh 'helm upgrade --install ${HELM_RELEASE} ${HELM_CHART} -n ${STAGING_NAMESPACE} --create-namespace \
             --set image.repository=${MOVIE_IMAGE} \
