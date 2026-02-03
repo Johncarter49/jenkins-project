@@ -58,6 +58,10 @@ pipeline {
         }
       }
       steps {
+	sh 'echo "STAGING START"'
+	sh 'kubectl version --client'
+	sh 'helm version'
+	sh 'ls -l $KUBECONFIG'
         withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
           sh 'helm upgrade --install ${HELM_RELEASE} ${HELM_CHART} -n ${STAGING_NAMESPACE} --create-namespace \
             --set image.repository=${MOVIE_IMAGE} \
