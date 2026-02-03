@@ -7,7 +7,7 @@ pipeline {
 
   environment {
     REGISTRY = "docker.io"
-    IMAGE_NAMESPACE = "your-dockerhub-username"
+    IMAGE_NAMESPACE = "aliagpak"
     MOVIE_IMAGE = "${REGISTRY}/${IMAGE_NAMESPACE}/movie-service"
     CAST_IMAGE = "${REGISTRY}/${IMAGE_NAMESPACE}/cast-service"
     IMAGE_TAG = "${env.BUILD_NUMBER}"
